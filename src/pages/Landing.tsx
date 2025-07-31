@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TrialCounter } from "@/components/TrialCounter";
-import { Brain, Target, Zap, ArrowRight, CheckCircle, Users, Briefcase } from "lucide-react";
+import { Brain, Target, Zap, ArrowRight, CheckCircle, Users, Briefcase, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
@@ -174,7 +174,7 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-border/50">
-        <div className="container mx-auto text-center">
+        <div className="container mx-auto text-center space-y-4">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-6 h-6 bg-accent rounded flex items-center justify-center">
               <Brain className="h-4 w-4 text-white" />
@@ -184,6 +184,19 @@ export default function Landing() {
           <p className="text-muted-foreground">
             Empowering job seekers with AI-driven CV analysis
           </p>
+          <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+            <span>made with</span>
+            <Heart className="h-4 w-4 text-red-500 fill-current" />
+            <span>by</span>
+            <a 
+              href="https://github.com/syeda-tw" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              https://github.com/syeda-tw
+            </a>
+          </div>
         </div>
       </footer>
     </div>
