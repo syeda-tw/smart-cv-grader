@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TrialCounter } from "@/components/TrialCounter";
-import { Brain, Target, Zap, ArrowRight, CheckCircle } from "lucide-react";
+import { Brain, Target, Zap, ArrowRight, CheckCircle, Users, Briefcase } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
@@ -52,24 +52,34 @@ export default function Landing() {
         <div className="container mx-auto text-center max-w-4xl">
           <div className="space-y-6 animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Match Your CV to Any Job with AI
+              Perfect CV Matching for Job Hunters & Freelancers
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Discover how well your CV fits job requirements and get actionable insights 
-              to improve your match rate using advanced AI analysis.
+              to improve your match rate. Get 3 free analyses per day with our advanced AI.
             </p>
+            <div className="flex items-center justify-center gap-8 mb-6">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Briefcase className="h-5 w-5" />
+                <span>Perfect for Job Hunters</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Users className="h-5 w-5" />
+                <span>Ideal for Freelancers</span>
+              </div>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
                 size="lg" 
                 className="gap-2 px-8"
                 onClick={() => navigate('/matcher')}
               >
-                Start Analysis
+                Start Free Analysis
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="lg">
-                Learn More
-              </Button>
+              <div className="text-sm text-muted-foreground">
+                3 free analyses per day • No signup required
+              </div>
             </div>
           </div>
         </div>
@@ -109,10 +119,11 @@ export default function Landing() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">
-                Boost Your Job Application Success
+                Built for Job Hunters & Freelancers
               </h2>
               <p className="text-lg text-muted-foreground">
-                Get detailed insights into how well your CV matches job requirements 
+                Whether you're applying for full-time positions or freelance projects, 
+                get detailed insights into how well your CV matches requirements 
                 and receive actionable recommendations to improve your chances.
               </p>
               <div className="space-y-3">
@@ -129,7 +140,7 @@ export default function Landing() {
                 className="gap-2"
                 onClick={() => navigate('/matcher')}
               >
-                Try It Now
+                Get 3 Free Analyses Today
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
