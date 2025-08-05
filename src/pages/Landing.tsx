@@ -1,7 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TrialCounter } from "@/components/TrialCounter";
-import { Brain, Target, Zap, ArrowRight, CheckCircle, Users, Briefcase, Heart } from "lucide-react";
+import {
+  Brain,
+  ArrowRight,
+  CheckCircle,
+  Users,
+  Briefcase,
+  Heart,
+  ListChecks,
+  Upload,
+  PlayCircle,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
@@ -9,27 +19,30 @@ export default function Landing() {
 
   const features = [
     {
-      icon: Brain,
-      title: "AI-Powered Analysis",
-      description: "Advanced algorithms analyze your CV against job requirements"
+      icon: Upload,
+      title: "Add Your CV & Job Post",
+      description:
+        "Start by uploading your CV and pasting in the job description you’re targeting.",
     },
     {
-      icon: Target,
-      title: "Skill Matching",
-      description: "Identify which skills match and what's missing for your target role"
+      icon: PlayCircle,
+      title: "Run Smart Analysis",
+      description:
+        "Our AI instantly compares your CV against the job requirements to understand the fit.",
     },
     {
-      icon: Zap,
-      title: "Instant Results",
-      description: "Get detailed feedback in seconds, not hours"
-    }
+      icon: ListChecks,
+      title: "Get Your Match Report",
+      description:
+        "See what skills match, what’s missing, and your overall match percentage—so you can apply smarter.",
+    },
   ];
 
   const benefits = [
-    "Improve your CV match rate",
-    "Identify skill gaps to focus on",
-    "Increase interview chances",
-    "Save time with instant analysis"
+    "Avoid applying to jobs that aren't a good fit",
+    "Apply smarter with targeted job matching",
+    "Save time with instant AI-powered analysis",
+    "Stay focused on roles aligned with your skills",
   ];
 
   return (
@@ -41,7 +54,9 @@ export default function Landing() {
             <div className="w-7 h-7 bg-foreground rounded-md flex items-center justify-center">
               <Brain className="h-4 w-4 text-background" />
             </div>
-            <span className="text-lg font-semibold tracking-tight">CV Match AI</span>
+            <span className="text-lg font-semibold tracking-tight">
+              CV Match AI
+            </span>
           </div>
           <TrialCounter />
         </div>
@@ -52,34 +67,36 @@ export default function Landing() {
         <div className="container mx-auto text-center max-w-4xl">
           <div className="space-y-8 animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
-              Perfect CV Matching for Job Hunters & Freelancers
+              Perfect{" "}
+              <span className="inline-block text-accent">CV Matching</span>{" "}
+              <br /> for Job Seekers
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Discover how well your CV fits job requirements and get actionable insights 
-              to improve your match rate. Get 3 free analyses per day with our advanced AI.
+              Know if a job is worth applying to, before you apply. Upload your
+              CV and a job post to see how well they match, and get clear
+              suggestions to boost your chances.
             </p>
             <div className="flex items-center justify-center gap-12 mb-8">
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Briefcase className="h-5 w-5" />
-                <span className="text-sm font-medium">Perfect for Job Hunters</span>
+                <span className="text-sm font-medium">
+                  3 free analyses per day
+                </span>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Users className="h-5 w-5" />
-                <span className="text-sm font-medium">Ideal for Freelancers</span>
+                <span className="text-sm font-medium">No signup required</span>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="gap-2 px-8 font-medium"
-                onClick={() => navigate('/matcher')}
+                onClick={() => navigate("/matcher")}
               >
-                Start Free Analysis
+                Analyze Job Post
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <div className="text-sm text-muted-foreground font-medium">
-                3 free analyses per day • No signup required
-              </div>
             </div>
           </div>
         </div>
@@ -93,19 +110,27 @@ export default function Landing() {
               How It Works
             </h2>
             <p className="text-xl text-muted-foreground font-medium">
-              Simple, fast, and accurate CV analysis in three steps
+              Instantly analyze any job post against your CV in three simple
+              steps
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="p-8 text-center card-hover border-border/60 bg-background/80 backdrop-blur-sm animate-slide-up">
+              <Card
+                key={index}
+                className="p-8 text-center card-hover border-border/60 bg-background/80 backdrop-blur-sm animate-slide-up"
+              >
                 <div className="space-y-6">
                   <div className="w-14 h-14 bg-muted rounded-xl flex items-center justify-center mx-auto">
                     <feature.icon className="h-7 w-7 text-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold tracking-tight">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                  <h3 className="text-xl font-semibold tracking-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
               </Card>
             ))}
@@ -119,12 +144,13 @@ export default function Landing() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Built for Job Hunters & Freelancers
+                Built for Job Seekers & Freelancers
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Whether you're applying for full-time positions or freelance projects, 
-                get detailed insights into how well your CV matches requirements 
-                and receive actionable recommendations to improve your chances.
+                Whether you're applying for full-time roles or freelance gigs,
+                CV Match AI quickly spot job posts that actually align with your
+                CV—so you don’t waste time on mismatches or chase the wrong
+                opportunities.
               </p>
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
@@ -134,13 +160,13 @@ export default function Landing() {
                   </div>
                 ))}
               </div>
-              <Button 
-                size="lg" 
-                variant="accent" 
+              <Button
+                size="lg"
+                variant="accent"
                 className="gap-2 font-medium"
-                onClick={() => navigate('/matcher')}
+                onClick={() => navigate("/matcher")}
               >
-                Get 3 Free Analyses Today
+                Analyze 3 Job Posts Today
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
@@ -148,8 +174,12 @@ export default function Landing() {
               <Card className="p-10 bg-muted/50 border-border/60 card-hover">
                 <div className="space-y-6">
                   <div className="text-center">
-                    <div className="text-5xl font-bold text-foreground mb-3">87%</div>
-                    <p className="text-muted-foreground font-medium">Average Match Score</p>
+                    <div className="text-5xl font-bold text-foreground mb-3">
+                      87%
+                    </div>
+                    <p className="text-muted-foreground font-medium">
+                      Average Match Score
+                    </p>
                   </div>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center text-sm">
@@ -182,19 +212,20 @@ export default function Landing() {
             <span className="font-semibold tracking-tight">CV Match AI</span>
           </div>
           <p className="text-muted-foreground font-medium">
-            Empowering job seekers with AI-driven CV analysis
+            CV Match AI saves you time by showing which jobs are worth applying
+            to
           </p>
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <span>made with</span>
-            <Heart className="h-4 w-4 text-red-500 fill-current" />
+            <Heart className="h-4 w-4 text-accent fill-current" />
             <span>by</span>
-            <a 
-              href="https://github.com/syeda-tw" 
-              target="_blank" 
+            <a
+              href="https://github.com/syeda-tw"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-foreground hover:text-accent transition-colors font-medium"
             >
-              https://github.com/syeda-tw
+              Syeda Taqvi{" "}
             </a>
           </div>
         </div>
