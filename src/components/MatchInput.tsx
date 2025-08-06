@@ -1,126 +1,115 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { FileUpload } from "@/components/FileUpload";
-import { Sparkles } from "lucide-react";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Textarea } from "./ui/textarea";
 
 const formSchema = z.object({
-  cvContent: z.string().min(10, "CV content must be at least 10 characters long"),
-  jobDescription: z.string().min(10, "Job description must be at least 10 characters long"),
+  cvContent: z
+    .string({
+      required_error:
+        "You need to either upload your CV as a valid TXT, DOCX, or PDF file, or paste it as text.",
+    })
+    .min(
+      100,
+      "Please provide more information in the CV field or upload a valid file."
+    )
+    .max(50000, "CV content is too long"),
+  jobDescription: z
+    .string()
+    .min(100, "Please provide more information in the Job Description field")
+    .max(50000, "Job Description is too long"),
 });
 
-type FormData = z.infer<typeof formSchema>;
-
-interface MatchInputProps {
-  cvContent: string;
-  jobDescription: string;
-  onCvContentChange: (content: string) => void;
-  onJobDescriptionChange: (description: string) => void;
-  onAnalyze: () => void;
-  isAnalyzing?: boolean;
-}
-
-export default function MatchInput({
-  cvContent,
-  jobDescription,
-  onCvContentChange,
-  onJobDescriptionChange,
-  onAnalyze,
-  isAnalyzing = false,
-}: MatchInputProps) {
-  const form = useForm<FormData>({
+const MatchInput = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    values: {
-      cvContent,
-      jobDescription,
-    },
-    mode: "onChange",
   });
 
-  const handleSubmit = (data: FormData) => {
-    // Ensure parent state is updated with latest form values
-    onCvContentChange(data.cvContent);
-    onJobDescriptionChange(data.jobDescription);
-    onAnalyze();
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log(data);
   };
 
+  //const cvContent = form.watch("cvContent");
+
+  //useEffect(() => {
+  //  console.log(cvContent);
+  //}, [cvContent]);
+
+  const [cvInputType, setCvInputType] = useState<"upload" | "paste">("upload");
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 animate-fade-in">
-        <Card className="p-6">
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Upload Your CV</h2>
-            <FormField
-              control={form.control}
-              name="cvContent"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <FileUpload
-                      onContentChange={(content) => {
-                        field.onChange(content);
-                        onCvContentChange(content);
-                      }}
-                      value={field.value}
-                      placeholder="Paste your CV content here or upload a file..."
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </Card>
-
-        <Card className="p-6">
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Job Description</h2>
-            <FormField
-              control={form.control}
-              name="jobDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Paste the job description here..."
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e.target.value);
-                        onJobDescriptionChange(e.target.value);
-                      }}
-                      className="min-h-[200px] resize-none"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </Card>
-
-        <Card className="p-6 text-center">
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center justify-between gap-2">
+          Step 1: Upload your CV
           <Button
-            type="submit"
-            size="lg"
-            className="gap-2 px-12"
-            disabled={!form.formState.isValid || isAnalyzing}
+            variant="outline"
+            onClick={() =>
+              setCvInputType(cvInputType === "upload" ? "paste" : "upload")
+            }
           >
-            <Sparkles className="h-5 w-5" />
-            Analyze with AI
+            {cvInputType === "upload"
+              ? "Paste your CV Text Instead"
+              : "Upload your CV File Instead"}
           </Button>
-        </Card>
-      </form>
-    </Form>
+        </CardTitle>
+        <CardDescription>
+          {cvInputType === "upload"
+            ? "Upload your CV as a valid TXT, DOCX, or PDF file"
+            : "Paste your CV as text"}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            {cvInputType === "upload" ? (
+              <> 123</>
+            ) : (
+              //<FormField
+              //  control={form.control}
+              //  name="cvContent"
+              //  render={({ field }) => (
+              //    <FormItem>
+              //      <FormLabel>CV Content</FormLabel>
+              //      <FileUpload
+              //        onContentChange={field.onChange}
+              //        value={field.value}
+              //      />
+              //    </FormItem>
+              //  )}
+              ///>
+              <FormField
+                control={form.control}
+                name="cvContent"
+                render={({ field, formState: { errors } }) => (
+                  <FormItem>
+                    <FormLabel>CV Content</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        error={!!errors.cvContent}
+                        errorMessage={errors.cvContent?.message}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            )}
+            <Button type="submit">Analyze Job Post</Button>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
-}
+};
+
+export default MatchInput;
